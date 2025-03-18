@@ -1,0 +1,68 @@
+#include <iostream.h>
+#include <conio.h>
+#define bool int
+#define true 1
+#define false 0
+struct Node {
+int data;
+Node* left;
+Node* right;
+};
+Node* createNode(int data) {
+Node* newNode = new Node();
+newNode->data = data;
+newNode->left = newNode->right = NULL;
+return newNode;
+}
+void insertNode(Node* &root, int data) {
+if (root == NULL) {
+root = createNode(data);
+}
+else if (data < root->data) {
+insertNode(root->left, data);
+}
+else {
+insertNode(root->right, data);
+}
+}
+void inorderTraversal(Node* root) {
+if (root) {
+inorderTraversal(root->left);
+cout << root->data << " ";
+inorderTraversal(root->right);
+}
+}
+bool searchNode(Node* root, int data) {
+if (root == NULL) {
+return false;
+}
+else if (root->data == data) {
+return true;
+}
+else if (data < root->data) {
+return searchNode(root->left, data);
+}
+else {
+return searchNode(root->right, data);
+}
+}
+void main() {
+Node* root = NULL;
+insertNode(root, 8);
+insertNode(root, 3);
+insertNode(root, 10);
+insertNode(root, 1);
+insertNode(root, 6);
+cout << "Inorder Traversal: ";
+inorderTraversal(root);
+cout << endl;
+int searchData = 6;
+if (searchNode(root, searchData)) {
+cout << "Node " << searchData << " found in the BST." << endl;
+}
+else {
+cout << "Node " << searchData << " not found
+in the BST." << endl;
+}
+getch();
+}
